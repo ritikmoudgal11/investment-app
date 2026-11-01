@@ -265,8 +265,7 @@ export default function Home() {
             Create Account
           </button>
         </div>
-      </header>
-
+      
 
       {/* ========================================================================
           MAIN VIEW ROUTING
