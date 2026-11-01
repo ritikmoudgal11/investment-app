@@ -11,7 +11,7 @@
 
 import React, { useState } from 'react';
 
-export default function Home() {
+export default function Home() { 
   // ----------------------------------------------------------------------------
   // NAVIGATION & TAB STATES
   // ----------------------------------------------------------------------------
@@ -223,41 +223,21 @@ export default function Home() {
       {/* ========================================================================
           TOP NAVIGATION BAR
           ======================================================================== */}
-      <header className="border-b border-purple-500/25 bg-[#100A20]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-2xl">
-        <div 
-          className="flex items-center gap-3.5 cursor-pointer group" 
-          onClick={() => setActiveTab('home')}
-        >
-          <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-pink-500 flex items-center justify-center font-black text-white text-2xl shadow-xl shadow-purple-500/30 group-hover:scale-105 transition-all duration-300">
-            ▲
+      {/* RESPONSIVE NAVIGATION HEADER */}
+      <header className="sticky top-0 z-50 border-b border-purple-500/25 bg-[#100A20]/90 backdrop-blur-md w-full">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('home')}>
+            <span className="font-bold tracking-wider text-white text-lg">LAMINAR CAPITAL</span>
+            <span className="text-pink-400 font-mono text-[10px] uppercase font-bold border border-pink-500/30 px-1.5 py-0.5 rounded">Live Engine</span>
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black tracking-wider text-white group-hover:text-pink-400 transition-colors">
-              LAMINAR CAPITAL
-            </span>
-            <span className="text-[10px] tracking-widest text-pink-400 font-mono font-bold uppercase -mt-0.5">
-              BY LAMINAR SYSTEMS
-            </span>
-          </div>
+          <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm font-medium text-gray-300">
+            <button onClick={() => setActiveTab('about')} className="hover:text-pink-400 transition-colors cursor-pointer">About Us</button>
+            <button onClick={() => setActiveTab('pool')} className="hover:text-pink-400 transition-colors cursor-pointer">Investment Pool</button>
+            <button onClick={() => setActiveTab('features')} className="hover:text-pink-400 transition-colors cursor-pointer">Cashflow Engine</button>
+            <button onClick={() => setActiveTab('contact')} className="hover:text-pink-400 transition-colors cursor-pointer">Contact</button>
+          </nav>
         </div>
-
-        <nav className="hidden md:flex items-center gap-1.5 bg-[#170E2E]/90 p-1.5 rounded-full border border-purple-500/25 text-sm font-medium shadow-inner">
-          <button onClick={() => setActiveTab('home')} className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'home' ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-black shadow-lg shadow-purple-500/30 scale-105" : "text-gray-300 hover:text-white"}`}>
-            Home
-          </button>
-          <button onClick={() => setActiveTab('about')} className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'about' ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-black shadow-lg shadow-purple-500/30 scale-105" : "text-gray-300 hover:text-white"}`}>
-            About Us
-          </button>
-          <button onClick={() => setActiveTab('segments')} className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'segments' ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-black shadow-lg shadow-purple-500/30 scale-105" : "text-gray-300 hover:text-white"}`}>
-            Investment Pools
-          </button>
-          
-          {isLoggedIn && (
-            <button onClick={() => setActiveTab('dashboard')} className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'dashboard' ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-black shadow-lg shadow-purple-500/30 scale-105" : "text-gray-300 hover:text-white"}`}>
-              Dashboard
-            </button>
-          )}
-        </nav>
+      </header>
 
         <div className="flex items-center gap-4">
           <button 
