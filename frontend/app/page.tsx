@@ -1,12 +1,12 @@
 // ==============================================================================
 // FILE: frontend/app/page.tsx
-// WHAT IT IS: Main Controller with Clean Ecosystem Overview and Dedicated Product Section
+// WHAT IT IS: Original Light Theme Controller with My Account Button Integrated
 // ==============================================================================
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
+import React, { useState } from 'react';
+import MyAccountButton from './components/MyAccountButton';
 import CashFlowEngine from './components/CashFlowEngine';
 import RiskCalculatorEngine from './components/RiskCalculatorEngine';
 import CommunityEngine from './components/CommunityEngine';
@@ -57,55 +57,9 @@ const PRODUCTS_REGISTRY = [
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<string>('home');
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [showGateModal, setShowGateModal] = useState<boolean>(false);
-  const [pendingTab, setPendingTab] = useState<string | null>(null);
-  
-  const [emailInput, setEmailInput] = useState('');
-  const [authError, setAuthError] = useState('');
-
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('laminar_user_email');
-    if (savedEmail) {
-      setUserEmail(savedEmail);
-    }
-  }, []);
 
   const handleProtectedTabClick = (tabId: string) => {
-    if (tabId === 'news' || tabId === 'home' || tabId === 'about' || tabId === 'products') {
-      setActiveTab(tabId);
-      return;
-    }
-
-    if (userEmail) {
-      setActiveTab(tabId);
-    } else {
-      setPendingTab(tabId);
-      setShowGateModal(true);
-    }
-  };
-
-  const handleRegistrationSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthError('');
-
-    const trimmed = emailInput.trim().toLowerCase();
-    if (!trimmed || !trimmed.includes('@')) {
-      setAuthError('Please enter a valid email address.');
-      return;
-    }
-
-    localStorage.setItem('laminar_user_email', trimmed);
-    setUserEmail(trimmed);
-    setShowGateModal(false);
-    setEmailInput('');
-
-    if (pendingTab) {
-      setActiveTab(pendingTab);
-      setPendingTab(null);
-    }
-
-    alert(`Success! Welcome to Laminar Systems, ${trimmed}. All apps are now unlocked.`);
+    setActiveTab(tabId);
   };
 
   return (
@@ -164,15 +118,7 @@ export default function Page() {
             >
               Pulse App
             </button>
-            <button
-              onClick={() => {
-                if (!userEmail) setShowGateModal(true);
-                else alert(`Signed in as ${userEmail}`);
-              }}
-              className="px-5 py-2.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all shadow-md"
-            >
-              {userEmail ? 'My Account' : 'Get ID / Login'}
-            </button>
+            <MyAccountButton />
           </div>
 
         </div>
@@ -214,7 +160,7 @@ export default function Page() {
               </div>
             </div>
 
-            {/* LAMINAR SYSTEMS, PRODUCTS, AND ECOSYSTEM (EXPLANATION ONLY - NO ACTION BUTTONS HERE) */}
+            {/* ECOSYSTEM OVERVIEW */}
             <div className="space-y-8 text-center pt-4 bg-white border border-slate-200/80 p-8 md:p-12 rounded-3xl shadow-sm">
               <div className="space-y-2 max-w-xl mx-auto">
                 <span className="text-xs font-semibold uppercase bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Overview</span>
@@ -233,7 +179,6 @@ export default function Page() {
                   </div>
                 ))}
                 
-                {/* NEWS WIRE EXPLANATION CARD (NON-PRODUCT ECOSYSTEM COMPONENT) */}
                 <div className="bg-slate-50 border border-slate-200/70 p-6 rounded-2xl space-y-4">
                   <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full border bg-amber-50 text-amber-700 border-amber-200 inline-block">
                     Free Wire
@@ -258,17 +203,7 @@ export default function Page() {
           </div>
         )}
 
-        {/* ================= ABOUT TAB ================= */}
-        {activeTab === 'about' && (
-          <div className="bg-white border border-slate-200/80 p-10 rounded-3xl max-w-3xl mx-auto space-y-6 shadow-sm">
-            <h2 className="text-3xl font-bold text-slate-900">About Laminar Systems</h2>
-            <p className="text-slate-600 text-base leading-relaxed">
-              Laminar Systems revolves around <strong className="text-slate-900">Flow</strong> (our flagship cash flow architecture tool), <strong className="text-slate-900">Pulse</strong> (our noise-free community app), and open market transparency via our <strong className="text-slate-900">News Wire</strong>.
-            </p>
-          </div>
-        )}
-
-        {/* ================= PRODUCTS TAB (ONLY PLACE WITH LAUNCH ACTIONS) ================= */}
+        {/* ================= PRODUCTS TAB ================= */}
         {activeTab === 'products' && (
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-2">
@@ -302,89 +237,13 @@ export default function Page() {
           </div>
         )}
 
-        {/* ================= ACTIVE VIEWS ================= */}
-        {activeTab === 'simulator' && (
-          <div>
-            <CashFlowEngine />
-          </div>
-        )}
-
-        {activeTab === 'risk-calc' && (
-          <div>
-            <RiskCalculatorEngine />
-          </div>
-        )}
-
-        {activeTab === 'news' && (
-          <div>
-            <NewsEngine />
-          </div>
-        )}
-
-        {activeTab === 'community' && (
-          <div>
-            <CommunityEngine />
-          </div>
-        )}
+        {/* ================= ACTIVE APP VIEWS ================= */}
+        {activeTab === 'simulator' && <CashFlowEngine />}
+        {activeTab === 'risk-calc' && <RiskCalculatorEngine />}
+        {activeTab === 'news' && <NewsEngine />}
+        {activeTab === 'community' && <CommunityEngine />}
 
       </main>
-
-      {/* MANDATORY ID REGISTRATION MODAL FOR APPS */}
-      {showGateModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-100 p-8 rounded-3xl max-w-md w-full space-y-6 shadow-2xl relative">
-            <button
-              onClick={() => { setShowGateModal(false); setPendingTab(null); }}
-              className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold"
-            >
-              ✕
-            </button>
-
-            <form onSubmit={handleRegistrationSubmit} className="space-y-5">
-              <div className="space-y-2 text-center">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl mx-auto">
-                  L
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">Create Your Free ID</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Please enter your email to unlock Flow, the Risk Calculator, and the Pulse community app. News Wire remains free for everyone.
-                </p>
-              </div>
-
-              {authError && (
-                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
-                  {authError}
-                </div>
-              )}
-
-              <div className="space-y-4 text-xs font-medium">
-                <div>
-                  <label className="text-slate-700 block mb-1">Email Address (Required)</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 p-3.5 rounded-2xl text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-2xl bg-emerald-500 text-white font-semibold text-sm hover:bg-emerald-600 transition-all shadow-md shadow-emerald-500/20"
-              >
-                Create ID & Unlock Apps ➔
-              </button>
-
-              <p className="text-center text-[11px] text-slate-400">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
-            </form>
-          </div>
-        </div>
-      )}
 
       <footer className="border-t border-slate-200 bg-white py-8 text-xs text-slate-500 text-center">
         <p>© 2026 Laminar Systems. Smart financial clarity and trading tools for everyone.</p>
