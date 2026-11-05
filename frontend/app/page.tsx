@@ -1,6 +1,6 @@
 // ==============================================================================
 // FILE: frontend/app/page.tsx
-// WHAT IT IS: Original Light Theme Controller with My Account Button Integrated
+// WHAT IT IS: Updated Controller with Auth & Settings Ready Ecosystem
 // ==============================================================================
 
 'use client';
@@ -118,6 +118,8 @@ export default function Page() {
             >
               Pulse App
             </button>
+            
+            {/* Dynamic Auth / My Account System */}
             <MyAccountButton />
           </div>
 
