@@ -29,8 +29,13 @@ export default function Navbar({ activeTab, setActiveTab, userEmail, onOpenGate 
     <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between">
       
       {/* LEFT SIDE: BRAND LOGO */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400"></div>
+      <div 
+        className="flex items-center gap-3 cursor-pointer group"
+        onClick={() => handleNavClick('home')}
+      >
+        <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-all">
+          L
+        </div>
         <div className="flex flex-col">
           <span className="font-extrabold tracking-tight text-white text-base">
             Laminar Systems
@@ -42,7 +47,7 @@ export default function Navbar({ activeTab, setActiveTab, userEmail, onOpenGate 
       </div>
 
       {/* CENTER: DYNAMIC 3D PILL NAVIGATION */}
-      <nav className="hidden md:flex items-center gap-1 bg-slate-900/80 border border-white/10 p-1 rounded-full">
+      <nav className="hidden md:flex items-center gap-1 bg-slate-900/80 border border-white/10 p-1 rounded-full shadow-inner">
         <button
           onClick={() => handleNavClick('home')}
           className={`px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
@@ -69,12 +74,12 @@ export default function Navbar({ activeTab, setActiveTab, userEmail, onOpenGate 
       <div className="flex items-center gap-3">
         <button
           onClick={() => handleNavClick('community')}
-          className="hidden sm:inline-flex px-4 py-2.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20 hover:bg-purple-500/20 transition-all font-semibold text-xs"
+          className="hidden sm:inline-flex px-4 py-2.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20 hover:bg-purple-500/20 transition-all font-semibold text-xs shadow-sm"
         >
           Pulse App
         </button>
 
-        {/* MY ACCOUNT BUTTON */}
+        {/* DYNAMIC ACCOUNT BUTTON */}
         <MyAccountButton />
       </div>
 

@@ -1,6 +1,6 @@
 // ==============================================================================
 // FILE: frontend/app/page.tsx
-// WHAT IT IS: Original Light Theme Controller with My Account Button Integrated
+// WHAT IT IS: Updated Controller with Light Theme & Auth Ecosystem
 // ==============================================================================
 
 'use client';
@@ -63,12 +63,12 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between selection:bg-emerald-200 selection:text-slate-900 relative">
+    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col justify-between selection:bg-emerald-200 selection:text-slate-900 relative">
       
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-emerald-100/70 via-teal-50/50 to-transparent blur-3xl pointer-events-none rounded-full"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-emerald-100/60 via-teal-50/40 to-transparent blur-3xl pointer-events-none rounded-full"></div>
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           
           <div 
@@ -118,6 +118,8 @@ export default function Page() {
             >
               Pulse App
             </button>
+            
+            {/* Dynamic Auth / My Account System */}
             <MyAccountButton />
           </div>
 
